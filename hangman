@@ -1,0 +1,203 @@
+import random
+import tkinter
+import threading
+#def stickfigure(n,s1):
+root=tkinter.Tk()
+def quit():
+    root.destroy()
+def g(n,s1):
+    list1=["\n   |","\n   0","\n   /","|","\\","\n   /","\\"]
+    for i in range(n):
+        s1=s1+list1[i]
+    if(n==7):
+        label=tkinter.Label(root,text=s1,bg="black",fg="white")
+        label.pack()
+        label1=tkinter.Label(root,text="\tGAME OVER\t",bg="black",fg="red")
+        label1.pack()
+        label2=tkinter.Label(root,text="\tYOU LOSE\t",bg="black",fg="red")
+        label2.pack()
+        button1=tkinter.Button(text="quit",command=root.destroy)
+        button1.pack()
+    else:
+        print("divya")
+        label=tkinter.Label(root,text=s1,bg="white",fg="black")
+        label.pack()
+        button2=tkinter.Button(text="quit",command=root.destroy)
+        button2.pack()
+    t1=threading.Thread(target=root.mainloop())
+    t1.start
+'''g(7,"____")
+def what():
+    n=7;s1="____"*4
+    stickfigure(n,s1)'''
+
+#stickfigure(5,"_______"*4)
+'''def sbc():
+    print("divya")
+    stickfigure(3,"_____"*4)
+
+sbc()'''
+'''def begin():
+    print("---------")
+    print("    |     ")
+    print("    0     ")
+    print("   /|\    ")
+    print("   / \   ")
+def lose1():
+ print("---------")
+ print("    |     ")
+ print("    0     ")
+ print("   /|\    ")
+ print("   /    ")
+def lose2():
+    print("---------")
+    print("    |     ")
+    print("    0     ")
+    print("   /|\    ")
+def lose3():
+   print("---------")
+   print("    |     ")
+   print("    0     ")
+   print("   /|   ")
+def lose4():
+    print("--------")
+    print("    |    ")
+    print("    0     ")
+    print("   /     ")
+def lose5():
+    print("---------")
+    print("    |    ")
+    print("    0    ")
+def lose6():
+    print("---------")
+    print("    |   ")
+def lose7():
+    print("---------")
+    #print("GAME OVER")'''
+def rules():
+    print("Enter your name and select start game.")
+    print("Select the decadeyou want the movies to be picked from")
+    print("A series of blanks of the length of the movie will be displayed")
+    print("Guess one letter at a time")
+    print("If the letter guesses is in the title then the letter will be displayed in its blank")
+    print("If not you lose turn and the hangman stick figure reduces by one")
+    print("You will have a total of 7 chances to guess a letter wrong. If beyond that you lose")
+    print("But if you guess the movie right before that, you win")
+    h=int(input("Press 1 to start new game"))
+    if(h==1):
+          decade()
+def greeting():
+    name=input("Enter name")
+    print("Hello,",name,"!\nWelcome to hangman designed using Python.\nWe hope you have fun!")
+    print("**MENU**")
+    print("1) START GAME\n2) RULES")
+    g=int(input("Enter 1 to start new game or 2 to read rules"))
+    if(g==1):
+        decade()
+    elif(g==2):
+        rules()
+def decade():
+    print("Choose decade of movies")
+    print("a)90's\tb)2000's\tc)2010's")
+    b=input("Choose a,b or c")
+    if(b=='a'):
+        movies=["mortalkombat","babysdayout","meninblack","titanic","stuart little ","forrest gump ","home alone ","the mask","jurassic park","the matrix"]
+    elif(b=='b'):
+        movies=["gladiator ","wedding crashers ","transformers","national treasure ","twilight","mamma mia ","mr and mrs smith ","spy kids ","my big fat greek wedding ","v for vendetta "]
+    elif(b=='c'):
+        movies=["black panther ","end game ","dunkirk","lady bird ","parasite","madmax furyroad ","get out "]
+    else:
+        print("Invalid entry. Try again.")
+        decade()
+    moviechoose(movies)
+def titlesaver(s,s1):
+    t=""
+    k=""
+    s=s.strip()
+    for i in range(1,len(s)+1):
+            t=t+str(i)+"_"
+            k=k+s[i-1]+"_"
+    #print(t,k)
+    print(t)
+    print("Fill up the characters at positions of digits")
+    mainfunction(t,s,k)
+def moviechoose(movies):
+    y=random.randint(1,5)
+    #print(y)
+    x=movies[y]
+    #print(x)
+    wordsletters(x)
+def wordsletters(x):
+    words=0
+    if " " in x:
+     for i in x:
+        if i==" ":
+            print("length of",(words+1),"word=",x.index(i))
+            words+=1
+            #print(x)
+     print("Total number of words=",words)
+    else:
+         print("Total number of words=1")
+         print("length of 1st word=",len(x))
+    x=x.replace(" ","")
+    s1="____"*3
+    #print(x)
+    titlesaver(x,s1)
+def hint(s,t):
+    y=str.lower(input("Do you want a hint? Type yes or no"))
+    z=len(s)-1
+    if(y=="yes"):
+     if(t[0]=="1"):
+        print("The first letter is",s[0])
+     elif(t[-2]!=s[-1]):
+        print("The last letter is",s[-1])
+     else:
+         print("No clue resuming game")
+    else:
+        print("Okay resuming game")
+def mainfunction(t,s,k):
+ print("Start game")
+ print("You have 7 chances left")
+ s1="_____"*3
+ n=1
+ while(n>0 and t!=k):
+         if(n==5):
+             hint(s,t)
+         if(n==7):
+             hint(s,t)
+         for i in range(len(s)):
+            if(t==k):
+                  print("You win")
+                  break
+            ch=input("Enter the character")
+            v=s.count(ch)
+            if(ch in s):
+             print("Right guess")
+             for i in range(v):
+               d=s.index(ch)
+               c=t[2*d]
+               t=t.replace(c,ch,1)
+               s=s.replace(ch,"_",1)
+            else:
+               print("wrong guess")
+               #g(n,s1)
+               print(t)
+               if(n==1):
+                   root=tkinter.Tk()
+                   label=tkinter.Label(root,text="_____",bg="white",fg="black")
+                   label.pack()
+                   button2=tkinter.Button(root,text="quit",command=root.destroy)
+                   button2.pack()
+                   root.mainloop()
+                   #print("game over")
+                   #break
+               
+         n+=1
+            
+         
+ print("GAME OVER")       
+greeting()
+
+
+        
+        
